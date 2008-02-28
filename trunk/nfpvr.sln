@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nfpvrlib", "nfpvrlib\nfpvrlib.vcproj", "{39D95DA8-A79D-4C00-9350-20840B9475B5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nfpvr", "nfpvr\nfpvr.vcproj", "{68AB8692-F980-4FE3-BDD3-AC9FA093C56C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{39D95DA8-A79D-4C00-9350-20840B9475B5} = {39D95DA8-A79D-4C00-9350-20840B9475B5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nfpvrwin", "nfpvrwin\nfpvrwin.vcproj", "{8CE9C636-E4C3-4F6A-ACF3-C54745B91B03}"
+	ProjectSection(ProjectDependencies) = postProject
+		{39D95DA8-A79D-4C00-9350-20840B9475B5} = {39D95DA8-A79D-4C00-9350-20840B9475B5}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39D95DA8-A79D-4C00-9350-20840B9475B5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{39D95DA8-A79D-4C00-9350-20840B9475B5}.Debug|Win32.Build.0 = Debug|Win32
+		{39D95DA8-A79D-4C00-9350-20840B9475B5}.Release|Win32.ActiveCfg = Release|Win32
+		{39D95DA8-A79D-4C00-9350-20840B9475B5}.Release|Win32.Build.0 = Release|Win32
+		{68AB8692-F980-4FE3-BDD3-AC9FA093C56C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{68AB8692-F980-4FE3-BDD3-AC9FA093C56C}.Debug|Win32.Build.0 = Debug|Win32
+		{68AB8692-F980-4FE3-BDD3-AC9FA093C56C}.Release|Win32.ActiveCfg = Release|Win32
+		{68AB8692-F980-4FE3-BDD3-AC9FA093C56C}.Release|Win32.Build.0 = Release|Win32
+		{8CE9C636-E4C3-4F6A-ACF3-C54745B91B03}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8CE9C636-E4C3-4F6A-ACF3-C54745B91B03}.Debug|Win32.Build.0 = Debug|Win32
+		{8CE9C636-E4C3-4F6A-ACF3-C54745B91B03}.Release|Win32.ActiveCfg = Release|Win32
+		{8CE9C636-E4C3-4F6A-ACF3-C54745B91B03}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
