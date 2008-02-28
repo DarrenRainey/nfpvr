@@ -1,0 +1,113 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_NFWIN               ICON                    "nfpvrwin.ico"
+IDI_NFWIN_RECORD        ICON                    "nfpvrwin_record.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU_POPUP MENU 
+BEGIN
+    POPUP "Popup"
+    BEGIN
+        POPUP "&Startup"
+        BEGIN
+            MENUITEM "&Start on startup",           ID_STARTUP_START
+            MENUITEM "&Don't start on startup",     ID_STARTUP_DONT
+        END
+        MENUITEM SEPARATOR
+        POPUP "Output &Directory"
+        BEGIN
+            MENUITEM "&Browse ...",                 ID_OUTPUTDIRECTORY_BROWSE
+            MENUITEM "&Open",                       ID_OUTPUTDIRECTORY_OPEN
+            MENUITEM SEPARATOR
+            MENUITEM "<output directory>",          ID_OUTPUTDIRECTORY_CURRENTLY
+        END
+        POPUP "&Auto Shutdown"
+        BEGIN
+            MENUITEM "&Disabled",                   ID_SHUTDOWN_DISABLED
+            MENUITEM SEPARATOR
+            MENUITEM "&Hibernate",                  ID_SHUTDOWN_HIBERNATE
+            MENUITEM "&Reboot",                     ID_SHUTDOWN_REBOOT
+            MENUITEM "&Shutdown",                   ID_SHUTDOWN_SHUTDOWN
+            MENUITEM "S&tandby",                    ID_SHUTDOWN_STANDBY
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "nfpvrwin &Webpage",           ID_WEBPAGE
+        MENUITEM SEPARATOR
+        MENUITEM "&About...",                   ID_ABOUT
+        MENUITEM "E&xit",                       ID_EXIT
+    END
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
