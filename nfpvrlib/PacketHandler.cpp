@@ -36,10 +36,10 @@ PacketHandler::PacketHandler(INfpvrInterface& nfpvrInterface):
 	_videoStream(VIDEO_STREAM_ID, VIDEO_BUFFER_SIZE),
 	_audioStream(AUDIO_STREAM_ID, AUDIO_BUFFER_SIZE)
 {
-		if (nfpvrInterface.getOptions()._bufferOutput)
-			_pMpegFile = new FileBuffered(OUTPUT_BUFFER_SIZE);
-		else
-			_pMpegFile = new File();
+	if (nfpvrInterface.getOptions()._bufferOutput)
+		_pMpegFile = new FileBuffered(OUTPUT_BUFFER_SIZE);
+	else
+		_pMpegFile = new File();
 }
 
 PacketHandler::~PacketHandler()
@@ -68,6 +68,9 @@ int64 PacketHandler::computeTimestamp(int64 timestamp)
 
 void PacketHandler::writeStreams()
 {
+	const bool handleAudio = true; //_nfpvrInterface.getOptions()._handleAudio;
+	const bool handleVideo = false;
+
 	while (_videoStream.isPesFound())
 	{
 		MpegHeader::PesInfo videoPes;
@@ -81,69 +84,80 @@ void PacketHandler::writeStreams()
 			switch (_state)
 			{
 			case StateNoReference:
-				_referenceTimestamp = videoPes.dts;
-
-				MpegHeader::writePackHeader(_packBuffer, MUX_RATE, videoDts);
-				_videoStream.writePes(_packBuffer, videoPts);
-				_videoStream.findPesHeader();
-
+				_referenceTimestamp = videoDts;
 				_packStartScr = videoDts;
 				_state = StatePackStarted;
+
+				MpegHeader::writePackHeader(_packBuffer, MUX_RATE, videoDts);
+				
+				if (handleVideo)
+					_videoStream.writePes(_packBuffer, videoPts);
+				else
+					_videoStream.discardPes();
+
+				_videoStream.findPesHeader();
 				break;
 
 			case StatePackStarted:
-				if (videoDts<_packStartScr)
-					_nfpvrInterface.notify(INfpvrInterface::NotifyWarning, "Video dts inconsistency (dts: %lld)", videoPes.dts);
-
-				if (_nfpvrInterface.getOptions()._handleAudio)
 				{
-					if (!_audioStream.isPesFound())
-						return;
+					if (videoDts<_packStartScr)
+						_nfpvrInterface.notify(INfpvrInterface::NotifyWarning, "Video dts inconsistency (dts: %lld)", videoPes.dts);
 
-					while (_audioStream.isPesFound())
+					bool handleAudioFinished = false;
+
+					if (handleAudio)
 					{
-						MpegHeader::PesInfo audioPes;
-						_audioStream.getCurrentHeader(audioPes);
-						int64 audioPts = computeTimestamp(audioPes.pts);
+						if (!_audioStream.isPesFound())
+							return;
 
-						if (audioPts < _packStartScr)
+						while (_audioStream.isPesFound())
 						{
-							_nfpvrInterface.notify(INfpvrInterface::NotifyWarning, "Discarding premature audio (pts: %lld)", audioPes.pts);
-							_audioStream.discardPes();
-							_audioStream.findPesHeader();
-						}
-						else if (audioPts >= _packStartScr &&
-								 audioPts < videoDts)
-						{
-							_audioStream.writePes(*_pMpegFile, audioPts);
-							_audioStream.findPesHeader();
-						}
-						else // if (audioPts >= videoDts)
-						{
-							_packBuffer.writeTo(*_pMpegFile);
-							_packBuffer.reset();
+							MpegHeader::PesInfo audioPes;
+							_audioStream.getCurrentHeader(audioPes);
+							int64 audioPts = computeTimestamp(audioPes.pts);
 
-							MpegHeader::writePackHeader(_packBuffer, MUX_RATE, videoDts);
-							_videoStream.writePes(_packBuffer, videoPts);
-							_videoStream.findPesHeader();
-
-							_packStartScr = videoDts;
-							break;
+							if (audioPts < _packStartScr)
+							{
+								_nfpvrInterface.notify(INfpvrInterface::NotifyWarning, "Discarding premature audio (pts: %lld)", audioPes.pts);
+								_audioStream.discardPes();
+								_audioStream.findPesHeader();
+							}
+							else if (audioPts >= _packStartScr &&
+									 audioPts < videoDts)
+							{
+								_audioStream.writePes(*_pMpegFile, audioPts);
+								_audioStream.findPesHeader();
+							}
+							else // if (audioPts >= videoDts)
+							{
+								handleAudioFinished = true;
+								break;
+							}
 						}
 					}
-				}
-				else
-				{
-					_packBuffer.writeTo(*_pMpegFile);
-					_packBuffer.reset();
+					else // if (!handleAudio)
+					{
+						handleAudioFinished = true;
+					}
 
-					MpegHeader::writePackHeader(_packBuffer, MUX_RATE, videoDts);
-					_videoStream.writePes(_packBuffer, videoPts);
-					_videoStream.findPesHeader();
+					if (handleAudioFinished)
+					{
+						_packBuffer.writeTo(*_pMpegFile);
+						_packBuffer.reset();
 
-					_packStartScr = videoDts;
+						MpegHeader::writePackHeader(_packBuffer, MUX_RATE, videoDts);
+						_packStartScr = videoDts;
+
+						if (handleVideo)
+							_videoStream.writePes(_packBuffer, videoPts);
+						else
+							_videoStream.discardPes();
+
+						_videoStream.findPesHeader();
+
+					}
+					break;
 				}
-				break;
 
 			default:
 				break;
@@ -159,7 +173,11 @@ void PacketHandler::writeStreams()
 				break;
 
 			case StatePackStarted:
-				_videoStream.writePes(_packBuffer, videoPts);
+				if (handleVideo)
+					_videoStream.writePes(_packBuffer, videoPts);
+				else
+					_videoStream.discardPes();
+
 				_videoStream.findPesHeader();
 				break;
 
@@ -201,7 +219,10 @@ void PacketHandler::handleVideo(const uint8* data, int length)
 
 void PacketHandler::handleAudio(const uint8* data, int length)
 {
-	handleStream(data, length, _audioStream, "audio");
+	const bool handleAudio = _nfpvrInterface.getOptions()._handleAudio;
+	
+	if (handleAudio)
+		handleStream(data, length, _audioStream, "audio");
 }
 
 void PacketHandler::handleStop()
