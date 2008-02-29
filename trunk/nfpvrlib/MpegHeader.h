@@ -4,6 +4,9 @@
 #include "NfpvrTypes.h"
 #include "Serializable.h"
 
+namespace nfpvr
+{
+
 class MpegHeader
 {
 public:
@@ -34,5 +37,5 @@ public:
 	static void writeProgramEndHeader(Serializable& dst);
 
 };
-
+}
 #endif

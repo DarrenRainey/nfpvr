@@ -7,6 +7,9 @@
 #define PATH_DELIMITER '/'
 #endif
 
+namespace nfpvr
+{
+
 class Utility
 {
 public:
@@ -17,6 +20,6 @@ public:
 	static const char* composeDatedFilename(const char* extension, const bool hasDetails, const char* number=0, const char* channel=0);
 };
 
+}
+
 #endif
-
-

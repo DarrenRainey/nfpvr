@@ -3,6 +3,9 @@
 
 #include "NfpvrTypes.h"
 
+namespace nfpvr
+{
+
 class Bitfield
 {
 public:
@@ -58,5 +61,7 @@ public:
 
 	void reset();
 };
+
+}
 
 #endif

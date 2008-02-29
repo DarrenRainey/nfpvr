@@ -5,6 +5,9 @@
 #include "Serializable.h"
 #include "MpegHeader.h"
 
+namespace nfpvr
+{
+
 class PesStreamHandler
 {
 public:
@@ -47,4 +50,5 @@ private:
 	Buffer                     _buffer;
 };
 
+}
 #endif

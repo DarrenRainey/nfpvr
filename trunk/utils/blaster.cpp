@@ -11,6 +11,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+using namespace nfpvr;
+
 Buffer buffer(1024*512);
 
 int main(int argc, char* argv[])

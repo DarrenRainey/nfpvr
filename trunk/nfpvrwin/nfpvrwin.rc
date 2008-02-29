@@ -72,6 +72,11 @@ BEGIN
             MENUITEM "&Don't start on startup",     ID_STARTUP_DONT
         END
         MENUITEM SEPARATOR
+        POPUP "&Recording options"
+        BEGIN
+            MENUITEM "Record &audio",               ID_RECORDINGOPTIONS_AUDIO
+            MENUITEM "Record &video",               ID_RECORDINGOPTIONS_VIDEO
+        END
         POPUP "Output &Directory"
         BEGIN
             MENUITEM "&Browse ...",                 ID_OUTPUTDIRECTORY_BROWSE

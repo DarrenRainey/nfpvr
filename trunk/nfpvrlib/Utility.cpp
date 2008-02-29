@@ -3,6 +3,9 @@
 #include "NfpvrSystem.h"
 #include <stdexcept>
 
+namespace nfpvr
+{
+
 void Utility::extractString(char* dst, int dstLength,
 				   const char* src, const int srcOffset, const int srcLength)
 {
@@ -120,4 +123,6 @@ const char* Utility::composePath(const char* path, const char* filename)
 		filename);
 
 	return result;
+}
+
 }

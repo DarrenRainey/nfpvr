@@ -7,6 +7,7 @@ ProgramOptions::ProgramOptions()
 	_bufferOutput  = false;
 	_help          = false;
 	_handleAudio   = true;
+	_handleVideo   = true;
 	_readRaw       = false;
 	_receiveThread = false;
 	_verbose       = false;
@@ -20,4 +21,3 @@ ProgramOptions::ProgramOptions()
 	_readRawFilename  = 0;
 	_outputDirectory  = 0;
 }
-

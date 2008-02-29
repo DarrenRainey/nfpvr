@@ -1,6 +1,9 @@
 #include "PesStreamHandler.h"
 #include "Utility.h"
 
+namespace nfpvr
+{
+
 int PesStreamHandler::MAXIMUM_PES_SIZE = 60*1024;
 
 PesStreamHandler::PesStreamHandler(uint8 streamId, int bufferSize):
@@ -194,4 +197,6 @@ int PesStreamHandler::discard(int size)
 	_lastFindOffset -= discarded;
 
 	return discarded;
+}
+
 }

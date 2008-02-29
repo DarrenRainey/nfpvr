@@ -2,6 +2,9 @@
 #include "Bitfield.h"
 #include <stdio.h>
 
+namespace nfpvr
+{
+
 FilePacketReader::FilePacketReader(INfpvrInterface& nfpvrInterface, const char* filename):
 	_filename(filename),
 	_nfpvrInterface(nfpvrInterface),
@@ -53,3 +56,4 @@ void FilePacketReader::readFromFile(const char* filename)
 	}
 }
 
+}

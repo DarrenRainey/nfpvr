@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include "NfpvrTypes.h"
 
+namespace nfpvr
+{
+
 class Serializable
 {
 public:
@@ -70,5 +73,5 @@ private:
 	Buffer _buffer;
 };
 
-
+}
 #endif

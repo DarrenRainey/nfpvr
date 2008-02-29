@@ -10,7 +10,7 @@
 #include "NfpvrwinInterface.h"
 #include "XBrowseForFolder.h"
 
-static const wchar_t* nfpvrwinVersion = L"0.0.2";
+static const wchar_t* nfpvrwinVersion = L"0.0.3";
 static const wchar_t* nfpvrwinWebpage = L"http://nfpvr.sourceforge.net/";
 
 static const wchar_t* nfwinClassName = L"nfwinClass";
@@ -24,6 +24,8 @@ void nfwinRemoveSystemTrayIcon(HWND hWnd);
 void nfwinModifySystemTrayIcon(HWND hWnd, HANDLE hIcon);
 void nfwinModifySystemTrayTip(HWND hWnd, const wchar_t* tip);
 void nfwinUpdateTip(HWND hWnd);
+
+using namespace nfpvr;
 
 NfpvrwinInterface nfpvrwinInterface;
 
@@ -233,6 +235,22 @@ void nfwinUpdateStartupOption(HMENU hMenu)
 	SetMenuItemInfo(hMenu, ID_STARTUP_DONT, false, &info);
 }
 
+void nfwinUpdateRecordingOptions(HMENU hMenu)
+{
+	const bool handleAudio = nfpvrwinInterface.getOptions()._handleAudio;
+	const bool handleVideo = nfpvrwinInterface.getOptions()._handleVideo;
+
+	MENUITEMINFO info;
+	info.cbSize = sizeof(MENUITEMINFO);
+	info.fMask = MIIM_STATE;
+	
+	info.fState = (handleAudio)?MFS_CHECKED:MFS_UNCHECKED;
+	SetMenuItemInfo(hMenu, ID_RECORDINGOPTIONS_AUDIO, false, &info);
+
+	info.fState = (handleVideo)?MFS_CHECKED:MFS_UNCHECKED;
+	SetMenuItemInfo(hMenu, ID_RECORDINGOPTIONS_VIDEO, false, &info);
+}
+
 void nfwinShowPopup(HWND hWnd)
 {
 	HMENU hMenu = LoadMenu(GetModuleHandle(NULL), MAKEINTRESOURCE(IDR_MENU_POPUP));
@@ -241,6 +259,7 @@ void nfwinShowPopup(HWND hWnd)
 	nfwinUpdateMenuOutputDirectory(hMenuPopup);
 	nfwinUpdateShutdownOption(hMenuPopup);
 	nfwinUpdateStartupOption(hMenuPopup);
+	nfwinUpdateRecordingOptions(hMenuPopup);
 
 	POINT point;
 	GetCursorPos(&point);
@@ -324,6 +343,16 @@ void nfwinShowPopup(HWND hWnd)
 
 	case ID_SHUTDOWN_STANDBY: 
 		nfpvrwinShutdownState = ShutdownStateStandby;
+		break;
+
+	case ID_RECORDINGOPTIONS_AUDIO:
+		nfpvrwinInterface.setRecordingOptions(!nfpvrwinInterface.getOptions()._handleAudio,
+											  nfpvrwinInterface.getOptions()._handleVideo);
+		break;
+
+	case ID_RECORDINGOPTIONS_VIDEO:
+		nfpvrwinInterface.setRecordingOptions(nfpvrwinInterface.getOptions()._handleAudio,
+											  !nfpvrwinInterface.getOptions()._handleVideo);
 		break;
 
 	case ID_EXIT:
@@ -597,4 +626,3 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	return 0;
 }
-

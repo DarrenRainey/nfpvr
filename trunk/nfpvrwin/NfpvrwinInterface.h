@@ -4,6 +4,8 @@
 #include <windows.h>
 #include "NfpvrLib.h"
 
+using namespace nfpvr;
+
 class NfpvrwinInterface: public INfpvrInterfaceNetwork
 {
 public:
@@ -21,6 +23,7 @@ public:
 	const wchar_t* getOutputDirectory();
 
 	void   setWindow(HWND hWnd) { _hwnd = hWnd; }
+	void   setRecordingOptions(bool a, bool v) { _options._handleAudio = a; _options._handleVideo = v;}
 	uint64 getTotalReceived() { return _totalReceived; }
 	int    getHandlerCount()  { return _handlerCount; }
 

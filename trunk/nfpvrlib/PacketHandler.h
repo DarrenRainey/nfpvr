@@ -5,10 +5,9 @@
 #include "Serializable.h"
 #include "PesStreamHandler.h"
 
-#if _XBOX
-#define MPEG_FILE_BUFFERED
-#endif
-
+namespace nfpvr
+{
+	
 class PacketHandler
 {
 public:
@@ -100,5 +99,6 @@ private:
 	char _filename[256];
 };
 
+}
 
 #endif

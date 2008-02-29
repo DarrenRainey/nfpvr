@@ -2,6 +2,9 @@
 #include "FilePacketReader.h"
 #include "UdpPacketReader.h"
 
+namespace nfpvr
+{
+
 int NfpvrLibReadFromFile(INfpvrInterface& iface, const char* filename)
 {
 	FilePacketReader reader(iface, filename);
@@ -14,4 +17,5 @@ int NfpvrLibReadFromUdp(INfpvrInterfaceNetwork& iface, int udpPort)
 	UdpPacketReader handler(iface, udpPort);
 	handler.read();
 	return 0;
+}
 }

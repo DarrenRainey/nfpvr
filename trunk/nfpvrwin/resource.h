@@ -36,13 +36,18 @@
 #define ID_STARTUP_DONT                 40029
 #define ID_POPUP_ABOUT                  40030
 #define ID_ABOUT                        40031
+#define ID_POPUP_RECORDINGOPTIONS       40032
+#define ID_RECORDINGOPTIONS_RECORDAUDIO 40033
+#define ID_RECORDINGOPTIONS_RECORDVIDEO 40034
+#define ID_RECORDINGOPTIONS_AUDIO       40035
+#define ID_RECORDINGOPTIONS_VIDEO       40036
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        109
-#define _APS_NEXT_COMMAND_VALUE         40032
+#define _APS_NEXT_COMMAND_VALUE         40037
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

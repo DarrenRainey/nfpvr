@@ -3,6 +3,8 @@
 #include "nfpvrwin.h"
 #include <stdio.h>
 
+using namespace nfpvr;
+
 NfpvrwinInterface::NfpvrwinInterface():
 	_hwnd(0),
 	_isRecording(false),
@@ -12,10 +14,11 @@ NfpvrwinInterface::NfpvrwinInterface():
 	_outputDirectory[0]=0;
 	_outputDirectoryWide[0]=0;
 
-	_options._bufferOutput = false;
-	_options._handleAudio = false;
-	_options._writeMpeg = true;
 	_options._writeRaw = false;
+	_options._writeMpeg = true;
+	_options._handleAudio = true;
+	_options._handleVideo = true;
+	_options._bufferOutput = false;
 	_options._writeRawFilename = 0;
 	_options._outputDirectory = _outputDirectory;
 }

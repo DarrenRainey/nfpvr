@@ -1,6 +1,9 @@
 #ifndef __types_h__
 #define __types_h__
 
+namespace nfpvr
+{
+
 typedef unsigned char uint8;
 typedef signed char   int8;
 
@@ -15,5 +18,7 @@ typedef signed long long   int64;
 
 #define MIN(x,y) ((x)<(y)?(x):(y))
 #define MAX(x,y) ((x)>(y)?(x):(y))
+
+}
 
 #endif
