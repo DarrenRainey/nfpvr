@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+using namespace nfpvr;
+
 Buffer buffer(1024*512);
 
 int main(int argc, char* argv[])

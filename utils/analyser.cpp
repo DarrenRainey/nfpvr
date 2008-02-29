@@ -6,6 +6,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
+using namespace nfpvr;
+
 Buffer buffer(1024*512);
 
 int main(int argc, char* argv[])

@@ -4,6 +4,9 @@
 #include <memory.h>
 #include <string.h>
 
+namespace nfpvr
+{
+
 File::File(FILE* file):
 	_file(file)
 {
@@ -165,4 +168,5 @@ void FileBuffered::flush()
 
 	File::write(data, length);
 	_buffer.reset();
+}
 }

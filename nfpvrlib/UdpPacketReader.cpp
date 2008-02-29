@@ -2,6 +2,9 @@
 #include "Utility.h"
 #include <memory.h>
 
+namespace nfpvr
+{
+
 int UdpPacketReader::UDP_RECEIVE_BUFFER_SIZE = 256*1024;
 
 UdpPacketReader::UdpPacketReader(INfpvrInterfaceNetwork& nfpvrInterface,
@@ -199,4 +202,5 @@ void UdpPacketReader::networkSetBufferSize(int sockbufsize)
 		_nfpvrInterface.notify(INfpvrInterface::NotifyWarning, "UdpPacketReader::networkSetBufferSize(), setsockopt() failed for size %d, getsockopt() returned %d", 
 			sockbufsize, newsize);
 	}
+}
 }

@@ -4,6 +4,9 @@
 #include "NfpvrLib.h"
 #include "PacketHandler.h"
 
+namespace nfpvr
+{
+
 class FilePacketReader
 {
 public:
@@ -17,5 +20,7 @@ private:
 	INfpvrInterface& _nfpvrInterface;
 	FilePacketHandler _packetHandler;
 };
+
+}
 
 #endif

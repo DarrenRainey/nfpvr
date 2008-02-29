@@ -1,6 +1,9 @@
 #include "MpegHeader.h"
 #include "Bitfield.h"
 
+namespace nfpvr
+{
+
 void MpegHeader::writePackHeader(Serializable& dst, uint32 mux_rate, uint64 scr)
 {
 	uint16 scr_ext = 0;
@@ -158,4 +161,6 @@ enum MpegHeader::MpegHeaderStatus
 		pesInfo.packetLength, pesHeaderDataLength);
 */
 	return StatusOk;
+}
+
 }

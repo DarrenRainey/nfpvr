@@ -2,6 +2,8 @@
 #include "NfpvrTypes.h"
 
 // Bitfield
+namespace nfpvr
+{
 
 Bitfield::Bitfield(uint8* buffer, int length):
 	_buffer(buffer),
@@ -150,3 +152,4 @@ template void BitfieldWriter::write<uint64>(uint64& data, int bits);
 template void BitfieldWriter::write<uint32>(uint32& data, int bits);
 template void BitfieldWriter::write<uint16>(uint16& data, int bits);
 
+}

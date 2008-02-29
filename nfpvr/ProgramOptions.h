@@ -16,6 +16,7 @@ public:
 	bool  _version;
 	bool  _receiveThread;
 	bool  _handleAudio;
+	bool  _handleVideo;
 	bool  _bufferOutput;
 
 	int   _udpPort;

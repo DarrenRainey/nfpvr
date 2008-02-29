@@ -9,9 +9,8 @@
 #include <unistd.h>
 #endif
 
-#if _XBOX
-#include "../xbmc/trunk/XBMC/xbmc/Application.h"
-#endif
+namespace nfpvr
+{
 
 int    PacketHandler::OUTPUT_BUFFER_SIZE = 1024*1024;
 
@@ -68,8 +67,8 @@ int64 PacketHandler::computeTimestamp(int64 timestamp)
 
 void PacketHandler::writeStreams()
 {
-	const bool handleAudio = true; //_nfpvrInterface.getOptions()._handleAudio;
-	const bool handleVideo = false;
+	const bool handleAudio = _nfpvrInterface.getOptions()._handleAudio;
+	const bool handleVideo = _nfpvrInterface.getOptions()._handleVideo;
 
 	while (_videoStream.isPesFound())
 	{
@@ -298,7 +297,11 @@ void PacketHandler::handleFilename(const uint8* data, int length)
 		_nfpvrInterface.notify(INfpvrInterface::NotifyMessage, "Simulating recording on \"%s\"", path);
 	}
 
-	_nfpvrInterface.notifyStartRecording(_mpegFilename);
+	if (hasDetails)
+		_nfpvrInterface.notifyStartRecording(_mpegFilename, number, channel);
+	else
+		_nfpvrInterface.notifyStartRecording(_mpegFilename);
+
 	sendFilenameReply();
 }
 
@@ -421,4 +424,6 @@ void FilePacketHandler::send(const uint8* data, int length)
 const char* FilePacketHandler::getSource()
 {
 	return _filename;
+}
+
 }

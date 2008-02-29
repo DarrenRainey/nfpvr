@@ -4,6 +4,9 @@
 #include "NfpvrSystem.h"
 #include "NfpvrTypes.h"
 
+namespace nfpvr
+{
+
 class INfpvrInterface
 {
 public:
@@ -20,6 +23,7 @@ public:
 		bool _writeRaw;
 		bool _writeMpeg;
 		bool _handleAudio;
+		bool _handleVideo;
 		bool _bufferOutput;
 		const char* _writeRawFilename;
 		const char* _outputDirectory;
@@ -27,7 +31,7 @@ public:
 
 	INfpvrInterface() {}
 	
-	virtual void           notifyStartRecording(const char* filename) {}
+	virtual void           notifyStartRecording(const char* filename, const char* number=0, const char* channel=0) {}
 	virtual void           notifyStopRecording(const char* filename) {}
 	virtual void           notify(NotifyLevel level, const char* format, ...)=0;
 	virtual const Options& getOptions()=0;
@@ -44,6 +48,8 @@ public:
 
 int NfpvrLibReadFromFile(INfpvrInterface& iface, const char* filename);
 int NfpvrLibReadFromUdp(INfpvrInterfaceNetwork& iface, int udpPort);
+
+}
 
 #endif
 

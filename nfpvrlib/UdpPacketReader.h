@@ -6,6 +6,9 @@
 
 #define UDP_HANDLER_COUNT (8)
 
+namespace nfpvr
+{
+
 class UdpReceiveThread;
 
 class UdpPacketReader
@@ -34,6 +37,6 @@ private:
 	NetworkPacketHandler* _handlers[UDP_HANDLER_COUNT];
 };
 
-
+}
 
 #endif

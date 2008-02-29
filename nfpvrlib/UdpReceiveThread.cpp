@@ -7,7 +7,7 @@ UdpReceiveThread::UdpReceiveThread(nfpvr_socket_t socket, int bufferLength, int 
 {
 	_lengths = new int[_bufferCount];
 	_data    = new uint8[_bufferCount*_bufferLength];
-	_senders = new sockaddr_in[_bufferCount];
+	_senders = new nfpvr_sockaddr_t[_bufferCount];
 	_readIndex = 0;
 	_writeIndex = 0;
 
@@ -19,7 +19,7 @@ UdpReceiveThread::UdpReceiveThread(nfpvr_socket_t socket, int bufferLength, int 
 	SetThreadPriority(hThread, THREAD_PRIORITY_TIME_CRITICAL);
 }
 
-int UdpReceiveThread::get(uint8* data, const int length, sockaddr_in* sender)
+int UdpReceiveThread::get(uint8* data, const int length, nfpvr_sockaddr_t* sender)
 {
 	WaitForSingleObject(_occupied, INFINITE);
 
@@ -43,7 +43,7 @@ DWORD WINAPI UdpReceiveThread::entry(LPVOID param)
 	while (true)
 	{
 		uint8* receiveData =  &reader->_data[reader->_writeIndex*reader->_bufferLength];
-		sockaddr_in* sender = &reader->_senders[reader->_writeIndex];
+		nfpvr_sockaddr_t* sender = &reader->_senders[reader->_writeIndex];
 
 		WaitForSingleObject(reader->_available, INFINITE);
 		int received = 0;
@@ -60,6 +60,5 @@ DWORD WINAPI UdpReceiveThread::entry(LPVOID param)
 		reader->_writeIndex%=reader->_bufferCount;
 
 		ReleaseSemaphore(reader->_occupied, 1, NULL);
-
 	}
 }

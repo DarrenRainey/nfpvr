@@ -6,6 +6,8 @@
 #include "NfpvrLib.h"
 #include "ProgramOptions.h"
 
+using namespace nfpvr;
+
 const char* VersionString = "0.1.4";
 
 void printVersion(const char* program, const char* version)
@@ -29,16 +31,17 @@ void printUsage(const char* program)
 	printf("Usage: %s [options]\n"
 		   "\n"
 		   "Valid options are:\n"
-		   "  -a, --audio                 Handle audio stream\n"
-		   "  -b, --buffer                Buffer output mpeg write calls\n"
-		   "  -h, --help                  Print this help message\n"
-		   "  -n, --nompeg                Don't compose the mpeg files\n"
-		   "  -o, --outputdir <directory> Output directory where to save mpeg files\n"
-		   "  -p, --port <port #>         UDP port on which to listen to (default: %d)\n"
-		   "  -r, --readraw <filename>    Reads raw data from a file instead of the network\n"
-		   "  -v, --verbose               Run in verbose mode\n"
-		   "  -w, --writeraw <filename>   Writes raw data from the network to a file\n"
-		   "  -x, --version               Print the version number\n",
+		   "  -b,  --buffer                Buffer output mpeg write calls\n"
+		   "  -h,  --help                  Print this help message\n"
+		   "  -o,  --outputdir <directory> Output directory where to save mpeg files\n"
+		   "  -p,  --port <port #>         UDP port on which to listen to (default: %d)\n"
+		   "  -r,  --readraw <filename>    Reads raw data from a file instead of the network\n"
+		   "  -v,  --verbose               Run in verbose mode\n"
+		   "  -w,  --writeraw <filename>   Writes raw data from the network to a file\n"
+		   "  -na, --noaudio               Ignore audio stream\n"
+		   "  -nv, --novideo               Ingore video stream\n"
+		   "  -nm, --nompeg                Don't compose the mpeg files\n"
+		   "  -x,  --version               Print the version number\n",
 		   program,
 		   ProgramOptions::DEFAULT_UDP_PORT);
 }
@@ -97,17 +100,22 @@ bool parseOptions(ProgramOptions& options, int argc, char* argv[])
 			else
 				return false;
 		}
-		else if (!strcmp(argv[x], "-a") || 
-				 !strcmp(argv[x], "--audio"))
+		else if (!strcmp(argv[x], "-na") || 
+				 !strcmp(argv[x], "--noaudio"))
 		{
 			options._handleAudio = false;
+		}
+		else if (!strcmp(argv[x], "-nv") || 
+				 !strcmp(argv[x], "--novideo"))
+		{
+			options._handleVideo = false;
 		}
 		else if (!strcmp(argv[x], "-b") || 
 				 !strcmp(argv[x], "--buffer"))
 		{
 			options._bufferOutput = false;
 		}
-		else if (!strcmp(argv[x], "-n") || 
+		else if (!strcmp(argv[x], "-nm") || 
 				 !strcmp(argv[x], "--nompeg"))
 		{
 			options._writeMpeg = false;
@@ -146,6 +154,7 @@ public:
 		_options._writeRaw = options._writeRaw;
 		_options._writeMpeg = options._writeMpeg;
 		_options._handleAudio = options._handleAudio;
+		_options._handleVideo = options._handleVideo;
 		_options._bufferOutput = options._bufferOutput;
 		_options._writeRawFilename = options._writeRawFilename;
 		_options._outputDirectory = options._outputDirectory;

@@ -11,7 +11,7 @@
 
 #else
 #ifdef _XBOX // xbox
-#include "../xbmc/trunk/XBMC/xbmc/stdafx.h"
+#include "../../xbmc/trunk/XBMC/xbmc/stdafx.h"
 
 #else // posix
 #include <sys/socket.h>
@@ -23,6 +23,8 @@
 #endif
 #endif
 
+namespace nfpvr
+{
 // system specific defines
 #if WIN32 || _XBOX
 
@@ -47,5 +49,5 @@ typedef socklen_t       nfpvr_socklen_t;
 #define NFPVR_INVALID_SOCKET (0)
 
 #endif
-
+}
 #endif
