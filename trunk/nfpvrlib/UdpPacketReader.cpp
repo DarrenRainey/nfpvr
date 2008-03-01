@@ -136,6 +136,8 @@ void UdpPacketReader::networkGetLocalAddress(char* address, int length)
 			strncpy(address, tempAddress, length);
 		}
 	}
+#else
+	address[0] = 0;
 #endif
 }
 

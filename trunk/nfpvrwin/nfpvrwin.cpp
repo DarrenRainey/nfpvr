@@ -10,7 +10,7 @@
 #include "NfpvrwinInterface.h"
 #include "XBrowseForFolder.h"
 
-static const wchar_t* nfpvrwinVersion = L"0.0.3";
+static const wchar_t* nfpvrwinVersion = L"0.0.5";
 static const wchar_t* nfpvrwinWebpage = L"http://nfpvr.sourceforge.net/";
 
 static const wchar_t* nfwinClassName = L"nfwinClass";

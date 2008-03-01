@@ -33,7 +33,7 @@ public:
 
 	void notify(NotifyLevel level, const char* format, ...)
 	{
-		static char message[1024];
+		char message[1024];
 		va_list list;
 		va_start(list, format);
 		vsnprintf(message, sizeof(message), format, list);
@@ -47,7 +47,7 @@ public:
 		}
 		
 		char logMessage[1024];
-		sprintf("nfpvr: %s%s", messageType, message);
+		sprintf(logMessage, "nfpvr: %s%s", messageType, message);
 		CLog::Log(LOGNOTICE, logMessage);
 	}
 
@@ -94,5 +94,5 @@ DWORD WINAPI nfpvrxboxEntry(LPVOID param)
 
 void nfpvrxboxCreateThread()
 {
-	CreateThread(NULL, 0, nfpvrxboxEntry, 0, 0, 0);
+	CreateThread(NULL, 0, nfpvrxboxEntry, 0, 0, NULL);
 }

@@ -8,7 +8,7 @@
 
 using namespace nfpvr;
 
-const char* VersionString = "0.1.4";
+const char* VersionString = "0.0.5";
 
 void printVersion(const char* program, const char* version)
 {

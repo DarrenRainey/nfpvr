@@ -83,7 +83,7 @@ void PacketHandler::writeStreams()
 			switch (_state)
 			{
 			case StateNoReference:
-				_referenceTimestamp = videoDts;
+				_referenceTimestamp = videoPes.dts;
 				_packStartScr = videoDts;
 				_state = StatePackStarted;
 
